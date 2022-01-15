@@ -43,14 +43,12 @@ describe("Product Model", () => {
             .set('Authorization', `Bearer ${token}`)
             .send({
             "name": "new product",
-            "price": 250
+            "price": 250.0
         });
-        console.log("response");
-        console.log(response);
         expect(response.body).toEqual({
             id: 1,
             name: 'new product',
-            price: 250
+            price: 250.0
         });
     }));
     it('index method should return a list of products', () => __awaiter(void 0, void 0, void 0, function* () {

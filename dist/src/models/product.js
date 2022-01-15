@@ -44,6 +44,7 @@ class ProductStore {
                 return result.rows[0];
             }
             catch (err) {
+                console.log(err);
                 throw new Error(`Could not create the product. Error: ${err}`);
             }
         });
