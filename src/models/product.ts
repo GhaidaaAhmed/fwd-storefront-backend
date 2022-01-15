@@ -19,7 +19,6 @@ export class ProductStore{
 
     async show(id: number): Promise<Product> {
         try {
-            console.log(id)
           const sql = 'SELECT * FROM products WHERE id=($1)'
           const result = await db_query_with_params(sql, [id]);
           return result.rows[0]
@@ -30,7 +29,7 @@ export class ProductStore{
 
     async create(name:string, price: number): Promise<Product> {
         try {
-          const sql = 'INSERT INTO products (name, price) VALUES($1, $2)'
+          const sql = 'INSERT INTO products (name, price) VALUES($1, $2) RETURNING *'
           const result = await db_query_with_params(sql, [name, price]);
           return result.rows[0]
         } catch (err) {

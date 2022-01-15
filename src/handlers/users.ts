@@ -37,7 +37,7 @@ const create = async (req: Request, res: Response) => {
         res.json(token)
     
     } catch(err) {
-        res.status(500)
+        res.status(400)
         res.json(err)
     }
 }
@@ -47,7 +47,7 @@ const create = async (req: Request, res: Response) => {
 const userRoutes = (app: express.Application) => {
   app.get('/users', verifyAuthToken, index)
   app.get('/users/:id', verifyAuthToken, show)
-  app.post('/users', verifyAuthToken, create)
+  app.post('/users', create)
 }
 
 export default userRoutes

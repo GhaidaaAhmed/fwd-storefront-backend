@@ -1,8 +1,5 @@
 import { db_query, db_query_with_params} from "../database";
 import bcrypt from 'bcrypt'
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 export type User = {
     id: Number;
@@ -39,9 +36,9 @@ export class UserModel{
 
     async create(firstName:string, lastName: string, password: string): Promise<User> {
         try {
-            const salt = SALT_ROUNDS? SALT_ROUNDS : 10
+            const salt = SALT_ROUNDS? Number(SALT_ROUNDS) : 10
             const encrypted_password =  bcrypt.hashSync(password + BCRYPT_PASSWORD, salt);
-            const sql = 'INSERT INTO products (firstName, lastName, password) VALUES($1, $2, $3)'
+            const sql = 'INSERT INTO users (firstName, lastName, password) VALUES($1, $2, $3) RETURNING *'
             const result = await db_query_with_params(sql, [firstName, lastName, encrypted_password]);
             return result.rows[0]
         } catch (err) {
