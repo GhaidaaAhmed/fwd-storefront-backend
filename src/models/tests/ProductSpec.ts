@@ -24,11 +24,11 @@ describe("Product Model", () => {
   });
 
   it('should have a show method', () => {
-    expect(product.index).toBeDefined();
+    expect(product.show).toBeDefined();
   });
 
   it('should have a create method', () => {
-    expect(product.index).toBeDefined();
+    expect(product.create).toBeDefined();
   });
 
   it('create method should add a product', async () => { 
