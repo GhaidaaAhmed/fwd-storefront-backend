@@ -1,6 +1,27 @@
 # Storefront Backend Project
 
-3 Models for store 
+### to setup project:
+1. install packages
+ ```
+ npm i 
+ ```
+2. rename ".env-example" file with ".env" and change your database info and the other secret info
+
+3. run db-migarte to setup your database 
+ ```
+db-migrate up 
+ ```
+4. to run project
+ ```
+npm start 
+ ```
+5. to run unit test
+ ```
+npm test 
+ ```
+
+
+#### 3 Models for store 
 1- Product:
     You can add new Product 
     example:

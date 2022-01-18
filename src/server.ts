@@ -4,11 +4,13 @@ import productRoutes from './handlers/products'
 import userRoutes from './handlers/users'
 import dashboardRoutes from './handlers/dashboard'
 import orderRoutes from './handlers/orders'
+import errorMiddleware from '../middleware/error'
 
 const app = express()
 const port = 3000
 
 app.use(bodyParser.json())
+app.use(errorMiddleware)
 
 app.get('/', (req: Request, res: Response) => {
   res.send("Welcome")
