@@ -20,7 +20,11 @@ const create = async (req: Request, res: Response) => {
     const { firstName, lastName ,password } = req.body;
     const new_user = await user.create(firstName, lastName ,password)
     var secret:string = process.env.TOKEN_SECRET?process.env.TOKEN_SECRET: 'secret',
-    token = jwt.sign({user: new_user}, secret)
+    token = jwt.sign({user:{
+        id:new_user.id,
+        firstname:new_user.firstname,
+        lastname:new_user.lastname}},
+        secret)
     res.json(token)
 }
 

@@ -32,14 +32,9 @@ describe("Product Model", () => {
   });
 
   it('create method should add a product', async () => { 
-    const response = await request.post('/products')
-    .set('Authorization', `Bearer ${token}`)
-    .send({
-      "name": "new product",
-      "price":250
-    })
-    expect(response.body).toEqual({
-      id: 1,
+    const response = await product.create('new product',250)
+    expect(response).toEqual({
+      id: 4,
       name: 'new product',
       price: 250
     });
@@ -49,6 +44,21 @@ describe("Product Model", () => {
     const result = await product.index();
     expect(result).toEqual([{
       id: 1,
+      name: 'new product',
+      price: 250
+    },
+    {
+      id: 2,
+      name: 'new product',
+      price: 250
+    },
+    {
+      id: 3,
+      name: 'new product',
+      price: 250
+    },
+    {
+      id: 4,
       name: 'new product',
       price: 250
     }]);

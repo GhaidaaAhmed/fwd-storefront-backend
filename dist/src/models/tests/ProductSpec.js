@@ -39,14 +39,9 @@ describe("Product Model", () => {
         expect(product.create).toBeDefined();
     });
     it('create method should add a product', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.post('/products')
-            .set('Authorization', `Bearer ${token}`)
-            .send({
-            "name": "new product",
-            "price": 250
-        });
-        expect(response.body).toEqual({
-            id: 1,
+        const response = yield product.create('new product', 250);
+        expect(response).toEqual({
+            id: 4,
             name: 'new product',
             price: 250
         });
@@ -55,6 +50,21 @@ describe("Product Model", () => {
         const result = yield product.index();
         expect(result).toEqual([{
                 id: 1,
+                name: 'new product',
+                price: 250
+            },
+            {
+                id: 2,
+                name: 'new product',
+                price: 250
+            },
+            {
+                id: 3,
+                name: 'new product',
+                price: 250
+            },
+            {
+                id: 4,
                 name: 'new product',
                 price: 250
             }]);

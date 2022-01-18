@@ -43,8 +43,6 @@
 
 | HTTP request  |     Path      |     args      |   JWT token   |
 | ------------- |:-------------:|:-------------:|:-------------:|
-|    GET        | /orders     | - |  required  |
-|    GET        | /orders/order_id    | order_id|  required  |
 |    POST       | /orders     | user_id[foreign key to users table],product_id [foreign key to products table],status(string), quantity(number) |   required  |
 
 ## Dashboard

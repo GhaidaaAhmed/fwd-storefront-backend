@@ -17,37 +17,23 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const verify_auth_token_1 = __importDefault(require("../../middleware/verify_auth_token"));
 const user = new user_1.UserModel();
 const index = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const users = yield user.index();
-        res.json(users);
-    }
-    catch (err) {
-        res.status(500);
-        res.json(err);
-    }
+    const users = yield user.index();
+    res.json(users);
 });
 const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const id = Number(req.params.id);
-        const user_obj = yield user.show(id);
-        res.json(user_obj);
-    }
-    catch (err) {
-        res.status(500);
-        res.json(err);
-    }
+    const id = Number(req.params.id);
+    const user_obj = yield user.show(id);
+    res.json(user_obj);
 });
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { firstName, lastName, password } = req.body;
-        const new_user = yield user.create(firstName, lastName, password);
-        var secret = process.env.TOKEN_SECRET ? process.env.TOKEN_SECRET : 'secret', token = jsonwebtoken_1.default.sign({ user: new_user }, secret);
-        res.json(token);
-    }
-    catch (err) {
-        res.status(400);
-        res.json(err);
-    }
+    const { firstName, lastName, password } = req.body;
+    const new_user = yield user.create(firstName, lastName, password);
+    var secret = process.env.TOKEN_SECRET ? process.env.TOKEN_SECRET : 'secret', token = jsonwebtoken_1.default.sign({ user: {
+            id: new_user.id,
+            firstname: new_user.firstname,
+            lastname: new_user.lastname
+        } }, secret);
+    res.json(token);
 });
 const userRoutes = (app) => {
     app.get('/users', verify_auth_token_1.default, index);

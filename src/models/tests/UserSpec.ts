@@ -24,7 +24,7 @@ describe("User Model", () => {
     var compare_pass = bcrypt.compareSync("password"+process.env.BCRYPT_PASSWORD, result.password)
     expect(compare_pass).toEqual(true)
     expect(result).toEqual({
-        id:3,
+        id:6,
         firstname:"firstName",
         lastname: "lastName" ,
         password: result.password

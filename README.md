@@ -11,7 +11,7 @@
  ```
 db-migrate up 
  ```
-4. to run project
+4. to run project will be running on localhost port 3000
  ```
 npm start 
  ```

@@ -16,15 +16,9 @@ const verify_auth_token_1 = __importDefault(require("../../middleware/verify_aut
 const dashboard_1 = require("../services/dashboard");
 const dashboard = new dashboard_1.DashboardQueries();
 const getUserOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const user_id = Number(req.params.user_id);
-        const user_orders = yield dashboard.getUserOrders(user_id);
-        res.json(user_orders);
-    }
-    catch (err) {
-        res.status(400);
-        res.json(err);
-    }
+    const user_id = Number(req.params.user_id);
+    const user_orders = yield dashboard.getUserOrders(user_id);
+    res.json(user_orders);
 });
 const dashboardRoutes = (app) => {
     app.get('/users/:user_id/orders', verify_auth_token_1.default, getUserOrders);

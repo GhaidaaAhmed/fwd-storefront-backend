@@ -17,8 +17,8 @@ class DashboardQueries {
             try {
                 const sql = `SELECT orders.id, orders.status, order_products.quantity
         FROM orders
-        JOIN order_products ON orders.id=order_products.order_id
-        where orders.user_id = ($1) and status = 'active')`;
+        JOIN order_products ON orders.id = order_products.order_id
+        where orders.user_id = ($1) and orders.status = 'active'`;
                 const result = yield (0, database_1.db_query_with_params)(sql, [user_id]);
                 return result.rows;
             }
