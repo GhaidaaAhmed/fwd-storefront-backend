@@ -13,10 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = require("../user");
-const supertest_1 = __importDefault(require("supertest"));
-const server_1 = __importDefault(require("../../server"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const user = new user_1.UserModel(), request = (0, supertest_1.default)(server_1.default);
+const user = new user_1.UserModel();
+let user_obj;
 describe("User Model", () => {
     it('should have an index method', () => {
         expect(user.index).toBeDefined();
@@ -28,14 +27,22 @@ describe("User Model", () => {
         expect(user.create).toBeDefined();
     });
     it('create method should add a new user', () => __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield user.create("firstName", "lastName", "password");
-        var compare_pass = bcrypt_1.default.compareSync("password" + process.env.BCRYPT_PASSWORD, result.password);
+        user_obj = yield user.create("firstName", "lastName", "password");
+        var compare_pass = bcrypt_1.default.compareSync("password" + process.env.BCRYPT_PASSWORD, user_obj.password);
         expect(compare_pass).toEqual(true);
-        expect(result).toEqual({
+        expect(user_obj).toEqual({
             id: 6,
             firstname: "firstName",
             lastname: "lastName",
-            password: result.password
+            password: user_obj.password
         });
+    }));
+    it('show method should return user by id', () => __awaiter(void 0, void 0, void 0, function* () {
+        const result = yield user.show(6);
+        expect(result).toEqual(user_obj);
+    }));
+    it('index method should return a list of users', () => __awaiter(void 0, void 0, void 0, function* () {
+        const result = yield user.index();
+        expect(result.length).toEqual(6);
     }));
 });

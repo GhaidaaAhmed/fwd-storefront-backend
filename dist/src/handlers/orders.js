@@ -15,10 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const order_1 = require("../models/order");
 const verify_auth_token_1 = __importDefault(require("../../middleware/verify_auth_token"));
 const order = new order_1.OrderModel();
-const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { status, user_id, order_products } = req.body;
-    const inserted_order_products = yield order.create(status, user_id, order_products);
-    res.json(inserted_order_products);
+const create = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { status, user_id, order_products } = req.body;
+        const inserted_order_products = yield order.create(status, user_id, order_products);
+        res.json(inserted_order_products);
+    }
+    catch (err) {
+        next(err);
+    }
 });
 const orderRoutes = (app) => {
     app.post('/orders', verify_auth_token_1.default, create);

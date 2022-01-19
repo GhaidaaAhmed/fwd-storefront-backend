@@ -15,19 +15,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const product_1 = require("../models/product");
 const verify_auth_token_1 = __importDefault(require("../../middleware/verify_auth_token"));
 const store = new product_1.ProductStore();
-const index = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const products = yield store.index();
-    res.json(products);
+const index = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const products = yield store.index();
+        res.json(products);
+    }
+    catch (err) {
+        next(err);
+    }
 });
-const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = Number(req.params.id);
-    const product = yield store.show(id);
-    res.json(product);
+const show = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = Number(req.params.id);
+        const product = yield store.show(id);
+        res.json(product);
+    }
+    catch (err) {
+        next(err);
+    }
 });
-const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, price } = req.body;
-    const new_product = yield store.create(name, price);
-    res.json(new_product);
+const create = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { name, price } = req.body;
+        const new_product = yield store.create(name, price);
+        res.json(new_product);
+    }
+    catch (err) {
+        next(err);
+    }
 });
 const productRoutes = (app) => {
     app.get('/products', index);

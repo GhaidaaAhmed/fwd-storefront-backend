@@ -7,7 +7,7 @@
  ```
 2. rename ".env-example" file with ".env" and change your database info and the other secret info
 
-3. run db-migarte to setup your database 
+3. run db-migarte to setup your database on port 5432 as declared in .env
  ```
 db-migrate up 
  ```

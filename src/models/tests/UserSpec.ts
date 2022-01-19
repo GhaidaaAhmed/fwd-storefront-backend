@@ -1,10 +1,8 @@
-import { UserModel } from '../user';
-import supertest from 'supertest'
-import app from '../../server'
+import { User, UserModel } from '../user';
 import bcrypt from 'bcrypt'
 
-const user = new UserModel(),
-request = supertest(app)
+const user = new UserModel()
+let user_obj:User
 
 describe("User Model", () => {
   it('should have an index method', () => {
@@ -20,15 +18,25 @@ describe("User Model", () => {
   });
 
   it('create method should add a new user', async () => { 
-    const result = await user.create("firstName", "lastName" ,"password")
-    var compare_pass = bcrypt.compareSync("password"+process.env.BCRYPT_PASSWORD, result.password)
+    user_obj = await user.create("firstName", "lastName" ,"password")
+    var compare_pass = bcrypt.compareSync("password"+process.env.BCRYPT_PASSWORD, user_obj.password)
     expect(compare_pass).toEqual(true)
-    expect(result).toEqual({
+    expect(user_obj).toEqual({
         id:6,
         firstname:"firstName",
         lastname: "lastName" ,
-        password: result.password
+        password: user_obj.password
     });
   })
+
+  it('show method should return user by id', async () => { 
+    const result = await user.show(6)
+    expect(result).toEqual(user_obj);
+  })
+
+  it('index method should return a list of users', async () => {
+    const result = await user.index();
+    expect(result.length).toEqual(6);
+  });
 
 });
